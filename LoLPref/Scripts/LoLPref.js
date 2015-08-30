@@ -251,7 +251,7 @@ function TopThreeOverall(overallChamps) {
 };
 
 function SetUpStats(championDS, topSupport, topADC, topJG, topTop, topMid, topOverall) {
-    supportStats = []; adcStats = []; jgStats = []; topStats = []; midStats = [];
+    supportStats = []; adcStats = []; jgStats = []; topStats = []; midStats = [], overallStats = [];
     for (i = 0; i < championDS.length; i++) {
         if ($.inArray(championDS[i].id, topSupport) > -1) {           
             supportStats.push(championDS[i].stats);
