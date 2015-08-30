@@ -1,6 +1,6 @@
-﻿var adcChamps = [], supportChamps = [], jungleChamps = [], midChamps = [], topChamps = [];
-var topADC = [], topSupport = [], topJG = [], topMid = [], topTop = [];
-var supportStats = [], adcStats = [], jgStats = [], topStats = [], midStats = [];
+﻿var adcChamps = [], supportChamps = [], jungleChamps = [], midChamps = [], topChamps = [], overallChamps = [];
+var topADC = [], topSupport = [], topJG = [], topMid = [], topTop = [], topOverall = [];
+var supportStats = [], adcStats = [], jgStats = [], topStats = [], midStats = [], overallStats = [];
 var sortedStats = [];
 var TrueSummonerName;
 
@@ -65,14 +65,21 @@ function CreateRankedChampionArraySets(championDS) {
         if (c == 103 || c == 84 || c == 34 || c == 1 || c == 268 || c == 63 || c == 69 || c == 31 || c == 131 || c == 28 || c == 81 || c == 9 || c == 105 || c == 3 || c == 74 || c == 43 || c == 96 || c == 127 || c == 117 || c == 99 || c == 90 || c == 25 || c == 82 || c == 76 || c == 61 || c == 13 || c == 35 || c == 16 || c == 50 || c == 134 || c == 91 || c == 17 || c == 4 || c == 110 || c == 45 || c == 161 || c == 112 || c == 101 || c == 238 || c == 115 || c == 26 || c == 143 || c == 245) {
             midChamps.push(championDS[i]);
         }
+        if (c != 0) {
+            overallChamps.push(championDS[i]);
+        }
+        //if (c == 266 || c == 103 || c == 84 || c == 12 || c == 32 || c == 34 || c == 1 || c == 22 || c == 268 || c == 432 || c == 53 || c == 63 || c == 201 || c == 51 || c == 69 || c == 31 || c == 42 || c == 122 || c == 131 || c == 36 || c == 119 || c == 245 || c == 60 || c == 28 || c == 81 || c == 9 || c == 114 || c == 105 || c == 3 || c == 41 || c == 86 || c == 150 || c == 79 || c == 104 || c == 120 || c == 74 || c == 39 || c == 40 || c == 59 || c == 24 || c == 126 || c == 222 || c == 429 || c == 43 || c == 30 || c == 38 || c == 55 || c == 10 || c == 85 || c == 121 || c == 96 || c == 7 || c == 64 || c == 89 || c == 127 || c == 236 || c == 117 || c == 99 || c == 54 || c == 90 || c == 57 || c == 11 || c == 21 || c == 82 || c == 25 || c == 267 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0) {
+
+        //}
     }
     TopThreeSupport(supportChamps);
     TopThreeADC(adcChamps);
     TopThreeJG(jungleChamps);
     TopThreeTop(topChamps);
     TopThreeMid(midChamps);
-    SetUpStats(championDS, topSupport, topADC, topJG, topTop, topMid);
-    LoadSummonerUI(championDS, topSupport, topADC, topJG, topTop, topMid, supportStats, adcStats, jgStats, topStats, midStats);
+    TopThreeOverall(overallChamps);
+    SetUpStats(championDS, topSupport, topADC, topJG, topTop, topMid, topOverall);
+    LoadSummonerUI(championDS, topSupport, topADC, topJG, topTop, topMid, topOverall, supportStats, adcStats, jgStats, topStats, midStats, overallStats);
 };
 
 function TopThreeSupport(supportChamps) {
@@ -215,7 +222,35 @@ function TopThreeMid(midChamps) {
     //alert(topMid);
 };
 
-function SetUpStats(championDS, topSupport, topADC, topJG, topTop, topMid) {
+function TopThreeOverall(overallChamps) {
+    topOverall = [];
+    var gamesPlayed = [];
+    var firstChamp = null;
+    var secondChamp = null;
+    var thirdChamp = null;
+    for (i = 0; i < overallChamps.length; i++) {
+        gamesPlayed.push(overallChamps[i].stats.totalSessionsPlayed);
+    };
+    gamesPlayed.sort(function (a, b) { return b - a });
+    for (i = 0; i < overallChamps.length; i++) {
+        if (overallChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == null) {
+            firstChamp = overallChamps[i].id;
+        }
+        else if (overallChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == null) {
+            secondChamp = overallChamps[i].id;
+        }
+        else if (overallChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == null) {
+            thirdChamp = overallChamps[i].id;
+        }
+    };
+    //alert(firstChamp + " | " + secondChamp + " | " + thirdChamp);
+    topOverall.push(firstChamp);
+    topOverall.push(secondChamp);
+    topOverall.push(thirdChamp);
+    //alert(topMid);
+};
+
+function SetUpStats(championDS, topSupport, topADC, topJG, topTop, topMid, topOverall) {
     supportStats = []; adcStats = []; jgStats = []; topStats = []; midStats = [];
     for (i = 0; i < championDS.length; i++) {
         if ($.inArray(championDS[i].id, topSupport) > -1) {           
@@ -233,6 +268,9 @@ function SetUpStats(championDS, topSupport, topADC, topJG, topTop, topMid) {
         if ($.inArray(championDS[i].id, topMid) > -1) {
             midStats.push(championDS[i].stats);
         }
+        if ($.inArray(championDS[i].id, topOverall) > -1) {
+            overallStats.push(championDS[i].stats);
+        }
     };
     SortStats(supportStats);
     supportStats = sortedStats;
@@ -244,6 +282,8 @@ function SetUpStats(championDS, topSupport, topADC, topJG, topTop, topMid) {
     topStats = sortedStats;
     SortStats(midStats);
     midStats = sortedStats;
+    SortStats(overallStats);
+    overallStats = sortedStats;
 };
 
 function SortStats(stats) {
@@ -281,7 +321,7 @@ function SortStats(stats) {
 
 //====================================================================================================
 
-function LoadSummonerUI(championDS, topSupport, topADC, topJG, topTop, topMid, supportStats, adcStats, jgStats, topStats, midStats) {
+function LoadSummonerUI(championDS, topSupport, topADC, topJG, topTop, topMid, topOverall, supportStats, adcStats, jgStats, topStats, midStats, overallStats) {
     var controller = new Ractive({
         el: 'SummonerInfo',
         template: summonerTemplate,
@@ -388,6 +428,26 @@ function LoadSummonerUI(championDS, topSupport, topADC, topJG, topTop, topMid, s
                 ThirdKills: Math.round((supportStats[2].totalChampionKills / supportStats[2].totalSessionsPlayed) * 10) / 10,
                 ThirdDeaths: Math.round((supportStats[2].totalDeathsPerSession / supportStats[2].totalSessionsPlayed) * 10) / 10,
                 ThirdAssists: Math.round((supportStats[2].totalAssists / supportStats[2].totalSessionsPlayed) * 10) / 10,
+            },
+            Overall: {
+                FirstIMG: topOverall[0],
+                FirstGames: overallStats[0].totalSessionsPlayed,
+                FirstWins: Math.round(((overallStats[0].totalSessionsWon / overallStats[0].totalSessionsPlayed) * 100) * 10) / 10,
+                FirstKills: Math.round((overallStats[0].totalChampionKills / overallStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstDeaths: Math.round((overallStats[0].totalDeathsPerSession / overallStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstAssists: Math.round((overallStats[0].totalAssists / overallStats[0].totalSessionsPlayed) * 10) / 10,
+                SecondIMG: topOverall[1],
+                SecondGames: overallStats[1].totalSessionsPlayed,
+                SecondWins: Math.round(((overallStats[1].totalSessionsWon / overallStats[1].totalSessionsPlayed) * 100) * 10) / 10,
+                SecondKills: Math.round((overallStats[1].totalChampionKills / overallStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondDeaths: Math.round((overallStats[1].totalDeathsPerSession / overallStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondAssists: Math.round((overallStats[1].totalAssists / overallStats[1].totalSessionsPlayed) * 10) / 10,
+                ThirdIMG: topOverall[2],
+                ThirdGames: overallStats[2].totalSessionsPlayed,
+                ThirdWins: Math.round(((overallStats[2].totalSessionsWon / overallStats[2].totalSessionsPlayed) * 100) * 10) / 10,
+                ThirdKills: Math.round((overallStats[2].totalChampionKills / overallStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdDeaths: Math.round((overallStats[2].totalDeathsPerSession / overallStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdAssists: Math.round((overallStats[2].totalAssists / overallStats[2].totalSessionsPlayed) * 10) / 10,
             }
         }
     });
