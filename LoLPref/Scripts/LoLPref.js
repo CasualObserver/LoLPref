@@ -1,5 +1,7 @@
 ﻿var adcChamps = [], supportChamps = [], jungleChamps = [], midChamps = [], topChamps = [];
 var topADC = [], topSupport = [], topJG = [], topMid = [], topTop = [];
+var supportStats = [], adcStats = [], jgStats = [], topStats = [], midStats = [];
+var sortedStats = [];
 var TrueSummonerName;
 
 var summonerTemplate;
@@ -69,7 +71,8 @@ function CreateRankedChampionArraySets(championDS) {
     TopThreeJG(jungleChamps);
     TopThreeTop(topChamps);
     TopThreeMid(midChamps);
-    LoadSummonerUI(championDS, topSupport, topADC, topJG, topTop, topMid);
+    SetUpStats(championDS, topSupport, topADC, topJG, topTop, topMid);
+    LoadSummonerUI(championDS, topSupport, topADC, topJG, topTop, topMid, supportStats, adcStats, jgStats, topStats, midStats);
 };
 
 function TopThreeSupport(supportChamps) {
@@ -212,42 +215,181 @@ function TopThreeMid(midChamps) {
     //alert(topMid);
 };
 
+function SetUpStats(championDS, topSupport, topADC, topJG, topTop, topMid) {
+    supportStats = []; adcStats = []; jgStats = []; topStats = []; midStats = [];
+    for (i = 0; i < championDS.length; i++) {
+        if ($.inArray(championDS[i].id, topSupport) > -1) {           
+            supportStats.push(championDS[i].stats);
+        }
+        if ($.inArray(championDS[i].id, topADC) > -1) {
+            adcStats.push(championDS[i].stats);
+        }
+        if ($.inArray(championDS[i].id, topJG) > -1) {
+            jgStats.push(championDS[i].stats);
+        }
+        if ($.inArray(championDS[i].id, topTop) > -1) {
+            topStats.push(championDS[i].stats);
+        }
+        if ($.inArray(championDS[i].id, topMid) > -1) {
+            midStats.push(championDS[i].stats);
+        }
+    };
+    SortStats(supportStats);
+    supportStats = sortedStats;
+    SortStats(adcStats);
+    adcStats = sortedStats;
+    SortStats(jgStats);
+    jgStats = sortedStats;
+    SortStats(topStats);
+    topStats = sortedStats;
+    SortStats(midStats);
+    midStats = sortedStats;
+};
+
+function SortStats(stats) {
+    sortedStats = [];
+    var a = stats[0];
+    var b = stats[1];
+    var c = stats[2];
+    if (a.totalSessionsPlayed >= b.totalSessionsPlayed) {
+        if (a.totalSessionsPlayed >= c.totalSessionsPlayed) {
+            if (b.totalSessionsPlayed >= c.totalSessionsPlayed) {
+                sortedStats = [a, b, c];
+            }
+            else {
+                sortedStats = [a, c, b];
+            }
+        }
+        else {
+            sortedStats = [c, a, b];
+        }
+    }
+    else {
+        if (b.totalSessionsPlayed >= c.totalSessionsPlayed) {
+            if (a.totalSessionsPlayed >= c.totalSessionsPlayed) {
+                sortedStats = [b, a, c];
+            }
+            else {
+                sortedStats = [b, c, a];
+            }
+        }
+        else {
+            sortedStats = [c, b, a];
+        }
+    }
+};
+
 //====================================================================================================
 
-function LoadSummonerUI(championDS, topSupport, topADC, topJG, topTop, topMid) {
+function LoadSummonerUI(championDS, topSupport, topADC, topJG, topTop, topMid, supportStats, adcStats, jgStats, topStats, midStats) {
     var controller = new Ractive({
         el: 'SummonerInfo',
         template: summonerTemplate,
         data: {
-            TopIMG: {
-                First: topTop[0],
-                Second: topTop[1],
-                Third: topTop[2]
+            Summoner:{
+                Name: TrueSummonerName
             },
-            JungleIMG: {
-                First: topJG[0],
-                Second: topJG[1],
-                Third: topJG[2]
+            Top: {
+                FirstIMG: topTop[0],
+                FirstGames: topStats[0].totalSessionsPlayed,
+                FirstWins: Math.round(((topStats[0].totalSessionsWon / topStats[0].totalSessionsPlayed) * 100) * 10) / 10,
+                FirstKills: Math.round((topStats[0].totalChampionKills / topStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstDeaths: Math.round((topStats[0].totalDeathsPerSession / topStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstAssists: Math.round((topStats[0].totalAssists / topStats[0].totalSessionsPlayed) * 10) / 10,
+                SecondIMG: topTop[1],
+                SecondGames: topStats[1].totalSessionsPlayed,
+                SecondWins: Math.round(((topStats[1].totalSessionsWon / topStats[1].totalSessionsPlayed) * 100) * 10) / 10,
+                SecondKills: Math.round((topStats[1].totalChampionKills / topStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondDeaths: Math.round((topStats[1].totalDeathsPerSession / topStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondAssists: Math.round((topStats[1].totalAssists / topStats[1].totalSessionsPlayed) * 10) / 10,
+                ThirdIMG: topTop[2],
+                ThirdGames: topStats[2].totalSessionsPlayed,
+                ThirdWins: Math.round(((topStats[2].totalSessionsWon / topStats[2].totalSessionsPlayed) * 100) * 10) / 10,
+                ThirdKills: Math.round((topStats[2].totalChampionKills / topStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdDeaths: Math.round((topStats[2].totalDeathsPerSession / topStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdAssists: Math.round((topStats[2].totalAssists / topStats[2].totalSessionsPlayed) * 10) / 10,
             },
-            MidIMG: {
-                First: topMid[0],
-                Second: topMid[1],
-                Third: topMid[2]
+            Jungle: {
+                FirstIMG: topJG[0],
+                FirstGames: jgStats[0].totalSessionsPlayed,
+                FirstWins: Math.round(((jgStats[0].totalSessionsWon / jgStats[0].totalSessionsPlayed) * 100) * 10) / 10,
+                FirstKills: Math.round((jgStats[0].totalChampionKills / jgStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstDeaths: Math.round((jgStats[0].totalDeathsPerSession / jgStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstAssists: Math.round((jgStats[0].totalAssists / jgStats[0].totalSessionsPlayed) * 10) / 10,
+                SecondIMG: topJG[1],
+                SecondGames: jgStats[1].totalSessionsPlayed,
+                SecondWins: Math.round(((jgStats[1].totalSessionsWon / jgStats[1].totalSessionsPlayed) * 100) * 10) / 10,
+                SecondKills: Math.round((jgStats[1].totalChampionKills / jgStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondDeaths: Math.round((jgStats[1].totalDeathsPerSession / jgStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondAssists: Math.round((jgStats[1].totalAssists / jgStats[1].totalSessionsPlayed) * 10) / 10,
+                ThirdIMG: topJG[2],
+                ThirdGames: jgStats[2].totalSessionsPlayed,
+                ThirdWins: Math.round(((jgStats[2].totalSessionsWon / jgStats[2].totalSessionsPlayed) * 100) * 10) / 10,
+                ThirdKills: Math.round((jgStats[2].totalChampionKills / jgStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdDeaths: Math.round((jgStats[2].totalDeathsPerSession / jgStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdAssists: Math.round((jgStats[2].totalAssists / jgStats[2].totalSessionsPlayed) * 10) / 10,
             },
-            AdcIMG: {
-                First: topADC[0],
-                Second: topADC[1],
-                Third: topADC[2]
+            Mid: {
+                FirstIMG: topMid[0],
+                FirstGames: midStats[0].totalSessionsPlayed,
+                FirstWins: Math.round(((midStats[0].totalSessionsWon / midStats[0].totalSessionsPlayed) * 100) * 10) / 10,
+                FirstKills: Math.round((midStats[0].totalChampionKills / midStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstDeaths: Math.round((midStats[0].totalDeathsPerSession / midStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstAssists: Math.round((midStats[0].totalAssists / midStats[0].totalSessionsPlayed) * 10) / 10,
+                SecondIMG: topMid[1],
+                SecondGames: midStats[1].totalSessionsPlayed,
+                SecondWins: Math.round(((midStats[1].totalSessionsWon / midStats[1].totalSessionsPlayed) * 100) * 10) / 10,
+                SecondKills: Math.round((midStats[1].totalChampionKills / midStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondDeaths: Math.round((midStats[1].totalDeathsPerSession / midStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondAssists: Math.round((midStats[1].totalAssists / midStats[1].totalSessionsPlayed) * 10) / 10,
+                ThirdIMG: topMid[2],
+                ThirdGames: midStats[2].totalSessionsPlayed,
+                ThirdWins: Math.round(((midStats[2].totalSessionsWon / midStats[2].totalSessionsPlayed) * 100) * 10) / 10,
+                ThirdKills: Math.round((midStats[2].totalChampionKills / midStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdDeaths: Math.round((midStats[2].totalDeathsPerSession / midStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdAssists: Math.round((midStats[2].totalAssists / midStats[2].totalSessionsPlayed) * 10) / 10,
             },
-            SupportIMG: {
-                First: topSupport[0],
-                Second: topSupport[1],
-                Third: topSupport[2]
+            Adc: {
+                FirstIMG: topADC[0],
+                FirstGames: adcStats[0].totalSessionsPlayed,
+                FirstWins: Math.round(((adcStats[0].totalSessionsWon / adcStats[0].totalSessionsPlayed) * 100) * 10) / 10,
+                FirstKills: Math.round((adcStats[0].totalChampionKills / adcStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstDeaths: Math.round((adcStats[0].totalDeathsPerSession / adcStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstAssists: Math.round((adcStats[0].totalAssists / adcStats[0].totalSessionsPlayed) * 10) / 10,
+                SecondIMG: topADC[1],
+                SecondGames: adcStats[1].totalSessionsPlayed,
+                SecondWins: Math.round(((adcStats[1].totalSessionsWon / adcStats[1].totalSessionsPlayed) * 100) * 10) / 10,
+                SecondKills: Math.round((adcStats[1].totalChampionKills / adcStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondDeaths: Math.round((adcStats[1].totalDeathsPerSession / adcStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondAssists: Math.round((adcStats[1].totalAssists / adcStats[1].totalSessionsPlayed) * 10) / 10,
+                ThirdIMG: topADC[2],
+                ThirdGames: adcStats[2].totalSessionsPlayed,
+                ThirdWins: Math.round(((adcStats[2].totalSessionsWon / adcStats[2].totalSessionsPlayed) * 100) * 10) / 10,
+                ThirdKills: Math.round((adcStats[2].totalChampionKills / adcStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdDeaths: Math.round((adcStats[2].totalDeathsPerSession / adcStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdAssists: Math.round((adcStats[2].totalAssists / adcStats[2].totalSessionsPlayed) * 10) / 10,
+            },
+            Support: {
+                FirstIMG: topSupport[0],
+                FirstGames: supportStats[0].totalSessionsPlayed,
+                FirstWins: Math.round(((supportStats[0].totalSessionsWon / supportStats[0].totalSessionsPlayed) * 100) * 10) / 10,
+                FirstKills: Math.round((supportStats[0].totalChampionKills / supportStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstDeaths: Math.round((supportStats[0].totalDeathsPerSession / supportStats[0].totalSessionsPlayed) * 10) / 10,
+                FirstAssists: Math.round((supportStats[0].totalAssists / supportStats[0].totalSessionsPlayed) * 10) / 10,
+                SecondIMG: topSupport[1],
+                SecondGames: supportStats[1].totalSessionsPlayed,
+                SecondWins: Math.round(((supportStats[1].totalSessionsWon / supportStats[1].totalSessionsPlayed) * 100) * 10) / 10,
+                SecondKills: Math.round((supportStats[1].totalChampionKills / supportStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondDeaths: Math.round((supportStats[1].totalDeathsPerSession / supportStats[1].totalSessionsPlayed) * 10) / 10,
+                SecondAssists: Math.round((supportStats[1].totalAssists / supportStats[1].totalSessionsPlayed) * 10) / 10,
+                ThirdIMG: topSupport[2],
+                ThirdGames: supportStats[2].totalSessionsPlayed,
+                ThirdWins: Math.round(((supportStats[2].totalSessionsWon / supportStats[2].totalSessionsPlayed) * 100) * 10) / 10,
+                ThirdKills: Math.round((supportStats[2].totalChampionKills / supportStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdDeaths: Math.round((supportStats[2].totalDeathsPerSession / supportStats[2].totalSessionsPlayed) * 10) / 10,
+                ThirdAssists: Math.round((supportStats[2].totalAssists / supportStats[2].totalSessionsPlayed) * 10) / 10,
             }
         }
     });
-    controller.on({
-
-    });
-    controller.set('Summoner.Name', TrueSummonerName);
+    controller.on({});
 };
