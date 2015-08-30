@@ -84,6 +84,7 @@
     <Content Include="CSS\custom.css" />
     <Content Include="CSS\pure-min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Champion_Icons\999.png" />
     <Content Include="Images\Champion_Icons\266.png" />
     <Content Include="Images\Champion_Icons\103.png" />
     <Content Include="Images\Champion_Icons\84.png" />

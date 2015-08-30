@@ -69,9 +69,6 @@ function CreateRankedChampionArraySets(championDS) {
         if (c != 0) {
             overallChamps.push(championDS[i]);
         }
-        //if (c == 266 || c == 103 || c == 84 || c == 12 || c == 32 || c == 34 || c == 1 || c == 22 || c == 268 || c == 432 || c == 53 || c == 63 || c == 201 || c == 51 || c == 69 || c == 31 || c == 42 || c == 122 || c == 131 || c == 36 || c == 119 || c == 245 || c == 60 || c == 28 || c == 81 || c == 9 || c == 114 || c == 105 || c == 3 || c == 41 || c == 86 || c == 150 || c == 79 || c == 104 || c == 120 || c == 74 || c == 39 || c == 40 || c == 59 || c == 24 || c == 126 || c == 222 || c == 429 || c == 43 || c == 30 || c == 38 || c == 55 || c == 10 || c == 85 || c == 121 || c == 96 || c == 7 || c == 64 || c == 89 || c == 127 || c == 236 || c == 117 || c == 99 || c == 54 || c == 90 || c == 57 || c == 11 || c == 21 || c == 82 || c == 25 || c == 267 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0 || c == 0) {
-
-        //}
     }
     TopThreeSupport(supportChamps);
     TopThreeADC(adcChamps);
@@ -86,21 +83,21 @@ function CreateRankedChampionArraySets(championDS) {
 function TopThreeSupport(supportChamps) {
     topSupport = [];
     var gamesPlayed = [];
-    var firstChamp = null;
-    var secondChamp = null;
-    var thirdChamp = null;
+    var firstChamp = 999;
+    var secondChamp = 999;
+    var thirdChamp = 999;
     for (i = 0; i < supportChamps.length; i++) {
         gamesPlayed.push(supportChamps[i].stats.totalSessionsPlayed);
     };
     gamesPlayed.sort(function (a, b) { return b - a });
     for (i = 0; i < supportChamps.length; i++) {
-        if (supportChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == null) {
+        if (supportChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == 999) {
             firstChamp = supportChamps[i].id;
         }
-        else if (supportChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == null) {
+        else if (supportChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == 999) {
             secondChamp = supportChamps[i].id;
         }
-        else if (supportChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == null) {
+        else if (supportChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == 999) {
             thirdChamp = supportChamps[i].id;
         }
     };
@@ -114,21 +111,21 @@ function TopThreeSupport(supportChamps) {
 function TopThreeADC(adcChamps) {
     topADC = [];
     var gamesPlayed = [];
-    var firstChamp = null;
-    var secondChamp = null;
-    var thirdChamp = null;
+    var firstChamp = 999;
+    var secondChamp = 999;
+    var thirdChamp = 999;
     for (i = 0; i < adcChamps.length; i++) {
         gamesPlayed.push(adcChamps[i].stats.totalSessionsPlayed);
     };
     gamesPlayed.sort(function (a, b) { return b - a });
     for (i = 0; i < adcChamps.length; i++) {
-        if (adcChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == null) {
+        if (adcChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == 999) {
             firstChamp = adcChamps[i].id;
         }
-        else if (adcChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == null) {
+        else if (adcChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == 999) {
             secondChamp = adcChamps[i].id;
         }
-        else if (adcChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == null) {
+        else if (adcChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == 999) {
             thirdChamp = adcChamps[i].id;
         }
     };
@@ -142,21 +139,21 @@ function TopThreeADC(adcChamps) {
 function TopThreeJG(jungleChamps) {
     topJG = [];
     var gamesPlayed = [];
-    var firstChamp = null;
-    var secondChamp = null;
-    var thirdChamp = null;
+    var firstChamp = 999;
+    var secondChamp = 999;
+    var thirdChamp = 999;
     for (i = 0; i < jungleChamps.length; i++) {
         gamesPlayed.push(jungleChamps[i].stats.totalSessionsPlayed);
     };
     gamesPlayed.sort(function (a, b) { return b - a });
     for (i = 0; i < jungleChamps.length; i++) {
-        if (jungleChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == null) {
+        if (jungleChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == 999) {
             firstChamp = jungleChamps[i].id;
         }
-        else if (jungleChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == null) {
+        else if (jungleChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == 999) {
             secondChamp = jungleChamps[i].id;
         }
-        else if (jungleChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == null) {
+        else if (jungleChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == 999) {
             thirdChamp = jungleChamps[i].id;
         }
     };
@@ -170,21 +167,21 @@ function TopThreeJG(jungleChamps) {
 function TopThreeTop(topChamps) {
     topTop = [];
     var gamesPlayed = [];
-    var firstChamp = null;
-    var secondChamp = null;
-    var thirdChamp = null;
+    var firstChamp = 999;
+    var secondChamp = 999;
+    var thirdChamp = 999;
     for (i = 0; i < topChamps.length; i++) {
         gamesPlayed.push(topChamps[i].stats.totalSessionsPlayed);
     };
     gamesPlayed.sort(function (a, b) { return b - a });
     for (i = 0; i < topChamps.length; i++) {
-        if (topChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == null) {
+        if (topChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == 999) {
             firstChamp = topChamps[i].id;
         }
-        else if (topChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == null) {
+        else if (topChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == 999) {
             secondChamp = topChamps[i].id;
         }
-        else if (topChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == null) {
+        else if (topChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == 999) {
             thirdChamp = topChamps[i].id;
         }
     };
@@ -198,21 +195,21 @@ function TopThreeTop(topChamps) {
 function TopThreeMid(midChamps) {
     topMid = [];
     var gamesPlayed = [];
-    var firstChamp = null;
-    var secondChamp = null;
-    var thirdChamp = null;
+    var firstChamp = 999;
+    var secondChamp = 999;
+    var thirdChamp = 999;
     for (i = 0; i < midChamps.length; i++) {
         gamesPlayed.push(midChamps[i].stats.totalSessionsPlayed);
     };
     gamesPlayed.sort(function (a, b) { return b - a });
     for (i = 0; i < midChamps.length; i++) {
-        if (midChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == null) {
+        if (midChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == 999) {
             firstChamp = midChamps[i].id;
         }
-        else if (midChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == null) {
+        else if (midChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == 999) {
             secondChamp = midChamps[i].id;
         }
-        else if (midChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == null) {
+        else if (midChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == 999) {
             thirdChamp = midChamps[i].id;
         }
     };
@@ -226,21 +223,21 @@ function TopThreeMid(midChamps) {
 function TopThreeOverall(overallChamps) {
     topOverall = [];
     var gamesPlayed = [];
-    var firstChamp = null;
-    var secondChamp = null;
-    var thirdChamp = null;
+    var firstChamp = 999;
+    var secondChamp = 999;
+    var thirdChamp = 999;
     for (i = 0; i < overallChamps.length; i++) {
         gamesPlayed.push(overallChamps[i].stats.totalSessionsPlayed);
     };
     gamesPlayed.sort(function (a, b) { return b - a });
     for (i = 0; i < overallChamps.length; i++) {
-        if (overallChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == null) {
+        if (overallChamps[i].stats.totalSessionsPlayed == gamesPlayed[0] && firstChamp == 999) {
             firstChamp = overallChamps[i].id;
         }
-        else if (overallChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == null) {
+        else if (overallChamps[i].stats.totalSessionsPlayed == gamesPlayed[1] && secondChamp == 999) {
             secondChamp = overallChamps[i].id;
         }
-        else if (overallChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == null) {
+        else if (overallChamps[i].stats.totalSessionsPlayed == gamesPlayed[2] && thirdChamp == 999) {
             thirdChamp = overallChamps[i].id;
         }
     };
@@ -289,34 +286,60 @@ function SetUpStats(championDS, topSupport, topADC, topJG, topTop, topMid, topOv
 
 function SortStats(stats) {
     sortedStats = [];
-    var a = stats[0];
-    var b = stats[1];
-    var c = stats[2];
-    if (a.totalSessionsPlayed >= b.totalSessionsPlayed) {
-        if (a.totalSessionsPlayed >= c.totalSessionsPlayed) {
-            if (b.totalSessionsPlayed >= c.totalSessionsPlayed) {
-                sortedStats = [a, b, c];
+    var fillTheHoleObj = {
+        totalSessionsPlayed: 0,
+        totalSessionsWon: 0,
+        totalChampionKills: 0,
+        totalDeathsPerSession: 0,
+        totalAssists: 0
+    }
+    if (stats.length == 3) {
+        var a = stats[0];
+        var b = stats[1];
+        var c = stats[2];
+        if (a.totalSessionsPlayed >= b.totalSessionsPlayed) {
+            if (a.totalSessionsPlayed >= c.totalSessionsPlayed) {
+                if (b.totalSessionsPlayed >= c.totalSessionsPlayed) {
+                    sortedStats = [a, b, c];
+                }
+                else {
+                    sortedStats = [a, c, b];
+                }
             }
             else {
-                sortedStats = [a, c, b];
+                sortedStats = [c, a, b];
             }
         }
         else {
-            sortedStats = [c, a, b];
+            if (b.totalSessionsPlayed >= c.totalSessionsPlayed) {
+                if (a.totalSessionsPlayed >= c.totalSessionsPlayed) {
+                    sortedStats = [b, a, c];
+                }
+                else {
+                    sortedStats = [b, c, a];
+                }
+            }
+            else {
+                sortedStats = [c, b, a];
+            }
         }
     }
-    else {
-        if (b.totalSessionsPlayed >= c.totalSessionsPlayed) {
-            if (a.totalSessionsPlayed >= c.totalSessionsPlayed) {
-                sortedStats = [b, a, c];
-            }
-            else {
-                sortedStats = [b, c, a];
-            }
+    else if (stats.length == 2) {
+        var a = stats[0];
+        var b = stats[1];
+        if (a.totalSessionsPlayed >= b.totalSessionsPlayed) {
+            sortedStats = [a, b, fillTheHoleObj];
         }
         else {
-            sortedStats = [c, b, a];
+            sortedStats = [b, a, fillTheHoleObj];
         }
+    }
+    else if (stats.length == 1) {
+        var a = stats[0];
+        sortedStats = [a, fillTheHoleObj, fillTheHoleObj];
+    }
+    else if (stats.length == 0) {
+        sortedStats = [fillTheHoleObj, fillTheHoleObj, fillTheHoleObj];
     }
 };
 
@@ -454,3 +477,11 @@ function LoadSummonerUI(championDS, topSupport, topADC, topJG, topTop, topMid, t
     });
     controller.on({});
 };
+
+//var obj = {
+//    totalSessionsPlayed: 0,
+//    totalSessionsWon: 0,
+//    totalChampionKills: 0,
+//    totalDeathsPerSession: 0,
+//    totalAssists: 0
+//}
