@@ -48,6 +48,7 @@ function CreateRankedChampionArraySets(championDS) {
     jungleChamps = [];
     topChamps = [];
     midChamps = [];
+    overallChamps = [];
     for (i = 0; i < championDS.length; i++) {
         var c = championDS[i].id;
         if(c == 12 || c == 432 || c == 201 || c == 40 || c == 117 || c == 89 || c == 267 || c == 111 || c == 20 || c == 25 || c == 37 || c == 37 || c == 16 || c == 223 || c == 44 || c == 412 || c == 26 || c == 143 || c == 43 || c == 79 || c == 31 || c == 1){
