@@ -1,0 +1,15 @@
+﻿body {
+    /*font-family: Comic Sans, Comic Sans MS, cursive ;*/
+}
+.formLabel{
+    font-size:17px;font-weight:600;
+}
+.inputAboveSumbit{
+    padding-bottom:25px
+}
+.inputContainer {
+    padding-bottom: 2px;
+}
+.form1Input{
+
+}

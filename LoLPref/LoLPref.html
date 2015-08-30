@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>LoL Pref</title>
+	<meta charset="utf-8" />
+    <link href="CSS/custom.css" rel="stylesheet" />
+    <link href="CSS/pure-min.css" rel="stylesheet" />
+    <script src="Scripts/jQuery.min.js"></script>
+    <script src="Scripts/ractive.min.js"></script>
+    <script src="Scripts/LoLPref.js"></script>
+</head>
+<body>
+    <div style="width:1600px;margin:auto;">
+        <div style="margin-top:50px;font-size:46px;font-weight:bolder;padding-bottom:15px;" align="center">LoLPref</div>
+        <div style="display:table;margin:auto;">
+            <div style="display:table-cell;"><input id="summonerName" placeholder="Summoner Name" style="width:98%;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;font-size:26px;"></div>
+            <div style="display:table-cell;"><button id="searchSummoner" onclick="SearchBySummonerName($('#summonerName').val())" style="width:98%;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;font-size:26px;">Search</button></div>
+        </div>
+        <hr style="width:1600px;margin-top:15px;" />
+    </div>
+    <div id="SummonerInfo"></div>
+</body>
+</html>
+
+<script>
+    $("#summonerName").keypress(function (e) {
+        if (e.which == 13) {
+            SearchBySummonerName($('#summonerName').val())
+        }
+    });
+</script>
