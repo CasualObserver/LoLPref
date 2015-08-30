@@ -23,7 +23,7 @@ function SearchBySummonerName(summonerName) {
         },
         error: function () {
             $('#summonerName').val("");
-            alert("Summoner may not exist, or something else got fucked up.");
+            alert("Summoner may not exist, or something else weird happened.");
         }
     });
 };
