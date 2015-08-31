@@ -51,7 +51,7 @@ function CreateRankedChampionArraySets(championDS) {
     overallChamps = [];
     for (i = 0; i < championDS.length; i++) {
         var c = championDS[i].id;
-        if(c == 12 || c == 432 || c == 201 || c == 40 || c == 117 || c == 89 || c == 267 || c == 111 || c == 20 || c == 25 || c == 37 || c == 37 || c == 16 || c == 223 || c == 44 || c == 412 || c == 26 || c == 143 || c == 43 || c == 79){
+        if(c == 12 || c == 432 || c == 201 || c == 40 || c == 117 || c == 89 || c == 267 || c == 111 || c == 20 || c == 25 || c == 37 || c == 37 || c == 16 || c == 223 || c == 44 || c == 412 || c == 26 || c == 143 || c == 43){
             supportChamps.push(championDS[i]);
         }
         if (c == 22 || c == 51 || c == 42 || c == 119 || c == 81 || c == 104 || c == 222 || c == 429 || c == 96 || c == 236 || c == 21 || c == 133 || c == 15 || c == 17 || c == 18 || c == 29 || c == 6 || c == 110 || c == 67) {
