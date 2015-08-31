@@ -210,6 +210,7 @@
     <Content Include="Images\Champion_Icons\114.png" />
     <Content Include="Images\Champion_Icons\107.png" />
     <Content Include="Images\Champion_Icons\9.png" />
+    <Content Include="Images\Champion_Icons\61.png" />
     <Content Include="LoLPref.html" />
     <Content Include="Scripts\jQuery.min.js" />
     <Content Include="Scripts\LoLPref.js" />
