@@ -5,7 +5,10 @@ Summoner Names to use for testing it out: xTeddyG, Nord Mead, elflyy, iNyte, A m
 
 Host URL: http://lolpref.azurewebsites.net/lolpref.html
 
+
 File References:
+
 app logic - LoLPref/Scripts/LoLPref.js
+
 app template - LoLPref/Templates/Summoner.html
 
